@@ -1,0 +1,4 @@
+dist
+node_modules
+# not really needed for this
+package-lock.json
