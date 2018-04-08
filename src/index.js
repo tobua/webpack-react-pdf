@@ -10,43 +10,49 @@ class App extends Component {
     super(props)
 
     this.state = {
-      url: ''
+      title: 'React-PDF'
     }
   }
 
-  handleUrl(url) {
+  handleTitle(title) {
     this.setState({
-      url
+      title
     })
   }
 
+  handleUrl(url) {
+    this.url = url
+  }
+
   handleOpen() {
-    // Open url in IE11
-    if (typeof this.state.url === 'function') {
-      this.state.url()
-    }
+    this.url()
   }
 
   render() {
     return (
       <div>
-        <div class="center">
+        <div className="center">
           <img src={logo} alt="webpack-react-pdf" />
         </div>
         <h1>webpack-react-pdf</h1>
-        <a href={this.state.url} onClick={() => this.handleOpen()}>
+        <label>Change the Title</label>
+        <input onChange={event => this.handleTitle(event.target.value)} value={this.state.title} />
+        <br/>
+        <br/>
+        <a style={{ cursor: 'pointer' }} onClick={() => this.handleOpen()}>
           <button>Open PDF</button>
         </a>
-        <p>URL to BLOB: {this.state.url}</p>
         <Document
-          title="React-PDF"
           author="Matthias Giger"
           subject="react-pdf"
+          name="document"
           width={'100%'}
           height={400}
           onUrl={url => this.handleUrl(url)}
         >
-          <Page />
+          <Page
+            title={this.state.title}
+          />
         </Document>
       </div>
     )

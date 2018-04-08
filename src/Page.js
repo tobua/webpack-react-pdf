@@ -60,61 +60,68 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ({ onUrl }) => (
-  <Page size="A4" style={styles.page} wrap>
-    <View style={styles.heading}>
-      <View style={styles.headings}>
-        <Text style={styles.title}>React-PDF</Text>
-        <Text>Client Side PDF Generation with React</Text>
+export default ({ onUrl, title }) => {
+  const host = window.location.hostname
+  const protocol = window.location.protocol
+  const port = window.location.port
+  const urlLogo = `${protocol}//${host}:${port}/${logo}`
+
+  return (
+    <Page size="A4" style={styles.page} wrap>
+      <View style={styles.heading}>
+        <View style={styles.headings}>
+          <Text style={styles.title}>{title}</Text>
+          <Text>Client Side PDF Generation with React</Text>
+        </View>
+        <Image style={styles.image} src={urlLogo} />
       </View>
-      <Image style={styles.image} src={`http://localhost:8080/${logo}`} />
-    </View>
-    <View style={styles.description}>
-      <Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur.
-      </Text>
-    </View>
-    <View style={styles.table}>
-      <View style={styles.row}>
-        <View style={styles.header}>
-          <Text>Header 1</Text>
+      <View style={styles.description}>
+        <Text>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+          velit esse cillum dolore eu fugiat nulla pariatur.
+        </Text>
+      </View>
+      <View style={styles.table}>
+        <View style={styles.row}>
+          <View style={styles.header}>
+            <Text>Header 1</Text>
+          </View>
+          <View style={styles.header}>
+            <Text>Header 2</Text>
+          </View>
+          <View style={styles.header}>
+            <Text>Header 3</Text>
+          </View>
         </View>
-        <View style={styles.header}>
-          <Text>Header 2</Text>
+        <View style={styles.row}>
+          <View style={styles.cell}>
+            <Text>Cell 1</Text>
+          </View>
+          <View style={styles.cell}>
+            <Text>Cell 2</Text>
+          </View>
+          <View style={styles.cell}>
+            <Text>Cell 3</Text>
+          </View>
         </View>
-        <View style={styles.header}>
-          <Text>Header 3</Text>
+        <View style={styles.row}>
+          <View style={styles.cell}>
+            <Text>Cell 1</Text>
+          </View>
+          <View style={styles.cell}>
+            <Text>Cell 2</Text>
+          </View>
+          <View style={styles.cell}>
+            <Text>Cell 3</Text>
+          </View>
         </View>
       </View>
-      <View style={styles.row}>
-        <View style={styles.cell}>
-          <Text>Cell 1</Text>
-        </View>
-        <View style={styles.cell}>
-          <Text>Cell 2</Text>
-        </View>
-        <View style={styles.cell}>
-          <Text>Cell 3</Text>
-        </View>
+      <View style={styles.footer}>
+        <Text>License: MIT</Text>
       </View>
-      <View style={styles.row}>
-        <View style={styles.cell}>
-          <Text>Cell 1</Text>
-        </View>
-        <View style={styles.cell}>
-          <Text>Cell 2</Text>
-        </View>
-        <View style={styles.cell}>
-          <Text>Cell 3</Text>
-        </View>
-      </View>
-    </View>
-    <View style={styles.footer}>
-      <Text>License: MIT</Text>
-    </View>
-  </Page>
-)
+    </Page>
+  )
+}

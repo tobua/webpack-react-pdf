@@ -3,17 +3,20 @@ import { PDFRenderer, Document, createElement, pdf } from '@react-pdf/core'
 import omit from 'lodash.omit'
 
 export default class Container extends Component {
-  constructor(props) {
-    super(props)
-
-    this.container = createElement('ROOT')
-    this.state = {
-      url: '',
-      document: undefined
-    }
+  componentDidMount() {
+    this.renderPDF()
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
+    this.renderPDF()
+  }
+
+  componentWillUnmount() {
+    PDFRenderer.updateContainer(null, this.mountNode, this)
+  }
+
+  renderPDF() {
+    this.container = createElement('ROOT')
     this.mountNode = PDFRenderer.createContainer(this.container)
 
     PDFRenderer.updateContainer(
@@ -33,35 +36,16 @@ export default class Container extends Component {
         this.embed.src = url
 
         if (typeof this.props.onUrl === 'function') {
-          if (window.navigator.msSaveOrOpenBlob) {
-            this.props.onUrl(() =>
-              window.navigator.msSaveOrOpenBlob(blob, 'output.pdf')
-            )
-          } else {
-            this.props.onUrl(url)
-          }
+          this.props.onUrl(() => {
+            // Open with IE11 legacy API
+            if (window.navigator.msSaveOrOpenBlob) {
+                return window.navigator.msSaveOrOpenBlob(blob, `${this.props.name}.pdf`)
+            }
+
+            window.location.href = url
+          })
         }
       })
-  }
-
-  componentDidUpdate() {
-    PDFRenderer.updateContainer(
-      <Document {...omit(['height', 'width', 'children'], this.props)}>
-        {this.props.children}
-      </Document>,
-      this.mountNode,
-      this
-    )
-  }
-
-  componentWillUnmount() {
-    PDFRenderer.updateContainer(null, this.mountNode, this)
-  }
-
-  onDownload() {
-    if (window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveOrOpenBlob(this.blob, 'document.pdf')
-    }
   }
 
   render() {
