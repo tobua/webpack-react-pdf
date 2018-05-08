@@ -45,12 +45,19 @@ class App extends Component {
         <input onChange={event => this.handleTitle(event.target.value)} value={this.state.title} />
         <br/>
         <br/>
-        <a href={this.state.url} onClick={() => this.handleOpen()}>
-          <button style={{ cursor: 'pointer' }}>Open PDF</button>
+        <a
+          href={this.state.url}
+          onClick={() => this.handleOpen()}
+          download={'document.pdf'}
+        >
+          Download PDF
         </a>
+        <br/>
+        <br/>
         <Document
+        title="React PDF Document"
           author="Matthias Giger"
-          subject="react-pdf"
+          subject="This was generated with React-PDF"
           name="document"
           width={'100%'}
           height={400}

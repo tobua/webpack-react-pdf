@@ -8,20 +8,12 @@ export default class Container extends Component {
     super(props)
 
     props.fonts.map(font => Font.register(font.url, {family: font.name}))
-
-    this.state = {
-      fontsLoaded: false
-    }
   }
 
   async componentDidMount() {
     this.renderPDF()
 
     this.props.fonts.map(async font => await Font.load(font.name, this.document.root))
-
-    this.setState({
-      fontsLoaded: true
-    })
   }
 
   shouldComponentUpdate(nextProps) {
@@ -30,8 +22,8 @@ export default class Container extends Component {
     }
 
     return !equal(
-      ...omit(['children'], this.props),
-      ...omit(['children'], nextProps)
+      ...omit(this.props, ['children']),
+      ...omit(nextProps, ['children'])
     )
   }
 
@@ -48,7 +40,10 @@ export default class Container extends Component {
     this.mountNode = PDFRenderer.createContainer(this.container)
 
     PDFRenderer.updateContainer(
-      <Document ref={document => (this.document = document)} {...omit(['height', 'width', 'children'], this.props)}>
+      <Document
+        ref={document => (this.document = document)}
+        {...omit(this.props, ['height', 'width', 'children'])}
+      >
         {this.props.children}
       </Document>,
       this.mountNode,

@@ -57,9 +57,33 @@ const styles = StyleSheet.create({
     borderColor: '#E0E0E0'
   },
   footer: {
+    fontSize: 12,
     margin: 10,
     padding: 10,
     backgroundColor: '#E4E4E4'
+  },
+  fonts: {
+    padding: 10
+  },
+  font: {
+    small: {
+      paddingBottom: 5,
+      fontFamily: 'Helvetica',
+      fontSize: 10
+    },
+    helvetica: {
+      paddingBottom: 10,
+      fontFamily: 'Helvetica'
+    },
+    alice: {
+      fontFamily: 'Alice'
+    },
+    inter: {
+      fontFamily: 'Inter UI'
+    },
+    roboto: {
+      fontFamily: 'Roboto'
+    }
   }
 })
 
@@ -122,8 +146,18 @@ export default ({ title }) => {
           </View>
         </View>
       </View>
+      <View style={styles.fonts}>
+        <Text style={styles.font.small}>Embedded Font:</Text>
+        <Text style={styles.font.helvetica}>Helvetica</Text>
+        <Text style={styles.font.small}>Dynamically Loaded Fonts:</Text>
+        <Text style={styles.font.alice}>Alice</Text>
+        <Text style={styles.font.inter}>Inter UI</Text>
+        <Text style={styles.font.roboto}>Roboto</Text>
+      </View>
       <View style={styles.footer}>
         <Text>License: MIT</Text>
+        <Text>GitHub: naminho/webpack-react-pdf</Text>
+        <Text>Author: Matthias Giger</Text>
       </View>
     </Page>
   )
