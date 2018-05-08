@@ -10,7 +10,8 @@ class App extends Component {
     super(props)
 
     this.state = {
-      title: 'React-PDF'
+      title: 'React-PDF',
+      url: undefined
     }
   }
 
@@ -21,11 +22,16 @@ class App extends Component {
   }
 
   handleUrl(url) {
-    this.url = url
+    this.setState({
+      url
+    })
   }
 
   handleOpen() {
-    this.url()
+    // Open PDF in IE11
+    if (typeof this.state.url === 'function') {
+      this.state.url()
+    }
   }
 
   render() {
@@ -39,8 +45,8 @@ class App extends Component {
         <input onChange={event => this.handleTitle(event.target.value)} value={this.state.title} />
         <br/>
         <br/>
-        <a style={{ cursor: 'pointer' }} onClick={() => this.handleOpen()}>
-          <button>Open PDF</button>
+        <a href={this.state.url} onClick={() => this.handleOpen()}>
+          <button style={{ cursor: 'pointer' }}>Open PDF</button>
         </a>
         <Document
           author="Matthias Giger"
@@ -48,7 +54,21 @@ class App extends Component {
           name="document"
           width={'100%'}
           height={400}
-          onUrl={url => this.handleUrl(url)}
+          onUrl={this.handleUrl.bind(this)}
+          fonts={[
+            {
+              url: 'http://localhost:8080/fonts/Alice-Regular.ttf',
+              name: 'Alice'
+            },
+            {
+              url: 'http://localhost:8080/fonts/Inter-UI-Regular.ttf',
+              name: 'Inter UI'
+            },
+            {
+              url: 'http://localhost:8080/fonts/Roboto-Regular.ttf',
+              name: 'Roboto'
+            }
+          ]}
         >
           <Page
             title={this.state.title}

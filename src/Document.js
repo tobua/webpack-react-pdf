@@ -1,10 +1,38 @@
 import React, { Component } from 'react'
-import { PDFRenderer, Document, createElement, pdf } from '@react-pdf/core'
+import { PDFRenderer, Document, createElement, pdf, Font } from '@react-pdf/core'
 import omit from 'lodash.omit'
+import equal from 'deep-equal';
 
 export default class Container extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props)
+
+    props.fonts.map(font => Font.register(font.url, {family: font.name}))
+
+    this.state = {
+      fontsLoaded: false
+    }
+  }
+
+  async componentDidMount() {
     this.renderPDF()
+
+    this.props.fonts.map(async font => await Font.load(font.name, this.document.root))
+
+    this.setState({
+      fontsLoaded: true
+    })
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (!equal(this.props.children.props, nextProps.children.props)) {
+      return true
+    }
+
+    return !equal(
+      ...omit(['children'], this.props),
+      ...omit(['children'], nextProps)
+    )
   }
 
   componentDidUpdate() {
@@ -20,7 +48,7 @@ export default class Container extends Component {
     this.mountNode = PDFRenderer.createContainer(this.container)
 
     PDFRenderer.updateContainer(
-      <Document {...omit(['height', 'width', 'children'], this.props)}>
+      <Document ref={document => (this.document = document)} {...omit(['height', 'width', 'children'], this.props)}>
         {this.props.children}
       </Document>,
       this.mountNode,
@@ -36,14 +64,13 @@ export default class Container extends Component {
         this.embed.src = url
 
         if (typeof this.props.onUrl === 'function') {
-          this.props.onUrl(() => {
-            // Open with IE11 legacy API
-            if (window.navigator.msSaveOrOpenBlob) {
-                return window.navigator.msSaveOrOpenBlob(blob, `${this.props.name}.pdf`)
-            }
-
-            window.location.href = url
-          })
+          // Open with IE11 legacy API
+          if (window.navigator.msSaveOrOpenBlob) {
+            return this.props.onUrl(() => {
+              window.navigator.msSaveOrOpenBlob(blob, `${this.props.name}.pdf`)
+            })
+          }
+          this.props.onUrl(url)
         }
       })
   }
@@ -60,4 +87,8 @@ export default class Container extends Component {
       />
     )
   }
+}
+
+Container.defaultProps = {
+  fonts: []
 }

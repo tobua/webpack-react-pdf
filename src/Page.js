@@ -4,12 +4,14 @@ import logo from './logo.png'
 
 const styles = StyleSheet.create({
   page: {
-    fontFamily: 'Helvetica',
+    fontFamily: 'Inter UI',
     display: 'flex',
     flexDirection: 'column',
-    flexGrow: 1
+    flexGrow: 1,
+    fontSize: 20
   },
   heading: {
+    fontFamily: 'Alice',
     flexDirection: 'row',
     justifyContent: 'space-between',
     margin: 10,
@@ -25,6 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   description: {
+    fontFamily: 'Roboto',
     padding: 10
   },
   image: {
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ({ onUrl, title }) => {
+export default ({ title }) => {
   const host = window.location.hostname
   const protocol = window.location.protocol
   const port = window.location.port
