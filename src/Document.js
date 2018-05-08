@@ -1,19 +1,27 @@
 import React, { Component } from 'react'
-import { PDFRenderer, Document, createElement, pdf, Font } from '@react-pdf/core'
+import {
+  PDFRenderer,
+  Document,
+  createElement,
+  pdf,
+  Font
+} from '@react-pdf/core'
 import omit from 'lodash.omit'
-import equal from 'deep-equal';
+import equal from 'deep-equal'
 
 export default class Container extends Component {
   constructor(props) {
     super(props)
 
-    props.fonts.map(font => Font.register(font.url, {family: font.name}))
+    props.fonts.map(font => Font.register(font.url, { family: font.name }))
   }
 
   async componentDidMount() {
     this.renderPDF()
 
-    this.props.fonts.map(async font => await Font.load(font.name, this.document.root))
+    this.props.fonts.map(
+      async font => await Font.load(font.name, this.document.root)
+    )
   }
 
   shouldComponentUpdate(nextProps) {

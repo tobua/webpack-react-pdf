@@ -42,9 +42,12 @@ class App extends Component {
         </div>
         <h1>webpack-react-pdf</h1>
         <label>Change the Title</label>
-        <input onChange={event => this.handleTitle(event.target.value)} value={this.state.title} />
-        <br/>
-        <br/>
+        <input
+          onChange={event => this.handleTitle(event.target.value)}
+          value={this.state.title}
+        />
+        <br />
+        <br />
         <a
           href={this.state.url}
           onClick={() => this.handleOpen()}
@@ -52,10 +55,10 @@ class App extends Component {
         >
           Download PDF
         </a>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <Document
-        title="React PDF Document"
+          title="React PDF Document"
           author="Matthias Giger"
           subject="This was generated with React-PDF"
           name="document"
@@ -77,9 +80,7 @@ class App extends Component {
             }
           ]}
         >
-          <Page
-            title={this.state.title}
-          />
+          <Page title={this.state.title} />
         </Document>
       </div>
     )
