@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import Page from './Page'
 import Document from './Document'
 import logo from './logo.png'
+import getUrl from './get-url'
 
 class App extends Component {
   constructor(props) {
@@ -67,15 +68,15 @@ class App extends Component {
           onUrl={this.handleUrl.bind(this)}
           fonts={[
             {
-              url: 'http://localhost:8080/fonts/Alice-Regular.ttf',
+              url: getUrl('fonts/Alice-Regular.ttf'),
               name: 'Alice'
             },
             {
-              url: 'http://localhost:8080/fonts/Inter-UI-Regular.ttf',
+              url: getUrl('/fonts/Inter-UI-Regular.ttf'),
               name: 'Inter UI'
             },
             {
-              url: 'http://localhost:8080/fonts/Roboto-Regular.ttf',
+              url: getUrl('/fonts/Roboto-Regular.ttf'),
               name: 'Roboto'
             }
           ]}

@@ -33,3 +33,13 @@ on demand in this example, without including them directly in the bundle.
 Currently `yoga` cannot be installed on Windows via npm. As a workaround for
 that a prebuilt version can be found in
 [yoga-layout-windows](https://github.com/naminho/yoga-layout-windows).
+
+## Content-Security-Policy
+
+Modern browsers implement the `Content-Security-Policy` header. Usually this
+will block the PDF preview which requires `blob`. A minimal header to get the
+preview working would look like this (see `.htaccess` file)
+
+```
+Header add Content-Security-Policy "default-src 'self' 'unsafe-eval' 'unsafe-inline' *.polyfill.io blob:"
+```
