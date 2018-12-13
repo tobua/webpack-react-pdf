@@ -5,11 +5,6 @@ module.exports = env => ({
   mode: env ? 'production' : 'development',
   module: {
     rules: [
-      // https://github.com/devongovett/pdfkit/issues/478#issuecomment-322664148
-      {
-        test: /(pdfkit|linebreak|fontkit|unicode|brotli|png-js).*\.js$/,
-        loader: 'transform-loader?brfs'
-      },
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',

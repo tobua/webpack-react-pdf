@@ -1,17 +1,22 @@
-import 'regenerator-runtime/runtime'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Page from './Page'
-import Document from './Document'
+import Container from './Container'
+import Chart from './Chart'
+import fonts from './fonts'
 import logo from './logo.png'
-import getUrl from './get-url'
 
 class App extends Component {
   constructor(props) {
     super(props)
 
+    this._handleUrl = (url) => this.handleUrl(url)
+    this._handleTitle = event => this.handleTitle(event.target.value)
+    this._handleOpen = () => this.handleOpen()
+
     this.state = {
       title: 'React-PDF',
+      chartImage: undefined,
       url: undefined
     }
   }
@@ -36,6 +41,8 @@ class App extends Component {
   }
 
   render() {
+    const { title, chartImage, url } = this.state
+
     return (
       <div>
         <div className="center">
@@ -44,45 +51,41 @@ class App extends Component {
         <h1>webpack-react-pdf</h1>
         <label>Change the Title</label>
         <input
-          onChange={event => this.handleTitle(event.target.value)}
-          value={this.state.title}
+          onChange={this._handleTitle}
+          value={title}
         />
         <br />
         <br />
         <a
-          href={this.state.url}
-          onClick={() => this.handleOpen()}
+          href={typeof url === 'function' ? '' : url}
+          onClick={this._handleOpen}
           download={'document.pdf'}
         >
           Download PDF
         </a>
         <br />
         <br />
-        <Document
-          title="React PDF Document"
-          author="Matthias Giger"
-          subject="This was generated with React-PDF"
-          name="document"
+        <Container
           width={'100%'}
           height={400}
-          onUrl={this.handleUrl.bind(this)}
-          fonts={[
-            {
-              url: getUrl('fonts/Alice-Regular.ttf'),
-              name: 'Alice'
-            },
-            {
-              url: getUrl('/fonts/Inter-UI-Regular.ttf'),
-              name: 'Inter UI'
-            },
-            {
-              url: getUrl('/fonts/Roboto-Regular.ttf'),
-              name: 'Roboto'
-            }
-          ]}
+          onUrl={this._handleUrl}
+          fonts={fonts}
+          name="document"
         >
-          <Page title={this.state.title} />
-        </Document>
+          <Page
+            title={title}
+            chartImage={chartImage}
+          />
+        </Container>
+        <h2>DOM rendered Chart</h2>
+        <p>A screenshot will be made and inserted into the PDF.</p>
+        <Chart
+          onScreenshot={(image) => {
+            this.setState({
+              chartImage: image
+            })
+          }}
+        />
       </div>
     )
   }

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Page, Text, View, Image, StyleSheet } from '@react-pdf/core'
+import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer'
+import ChartScreenshot from './ChartScreenshot'
 import logo from './logo.png'
 
 const styles = StyleSheet.create({
@@ -87,79 +88,86 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ({ title }) => {
+export default ({ title, chartImage }) => {
   const host = window.location.hostname
   const protocol = window.location.protocol
   const port = window.location.port
   const urlLogo = `${protocol}//${host}:${port}/${logo}`
 
   return (
-    <Page size="A4" style={styles.page} wrap>
-      <View style={styles.heading}>
-        <View style={styles.headings}>
-          <Text style={styles.title}>{title}</Text>
-          <Text>Client Side PDF Generation with React</Text>
+    <Document
+      title="React PDF Document"
+      author="Matthias Giger"
+      subject="This was generated with ReactPDF"
+    >
+      <Page size="A4" style={styles.page}>
+        <View style={styles.heading}>
+          <View style={styles.headings}>
+            <Text style={styles.title}>{title}</Text>
+            <Text>Client Side PDF Generation with React</Text>
+          </View>
+          <Image style={styles.image} src={urlLogo} />
         </View>
-        <Image style={styles.image} src={urlLogo} />
-      </View>
-      <View style={styles.description}>
-        <Text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
-        </Text>
-      </View>
-      <View style={styles.table}>
-        <View style={styles.row}>
-          <View style={styles.header}>
-            <Text>Header 1</Text>
+        <View style={styles.description}>
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur.
+          </Text>
+        </View>
+        <View style={styles.table}>
+          <View style={styles.row}>
+            <View style={styles.header}>
+              <Text>Header 1</Text>
+            </View>
+            <View style={styles.header}>
+              <Text>Header 2</Text>
+            </View>
+            <View style={styles.header}>
+              <Text>Header 3</Text>
+            </View>
           </View>
-          <View style={styles.header}>
-            <Text>Header 2</Text>
+          <View style={styles.row}>
+            <View style={styles.cell}>
+              <Text>Cell 1</Text>
+            </View>
+            <View style={styles.cell}>
+              <Text>Cell 2</Text>
+            </View>
+            <View style={styles.cell}>
+              <Text>Cell 3</Text>
+            </View>
           </View>
-          <View style={styles.header}>
-            <Text>Header 3</Text>
+          <View style={styles.row}>
+            <View style={styles.cell}>
+              <Text>Cell 1</Text>
+            </View>
+            <View style={styles.cell}>
+              <Text>Cell 2</Text>
+            </View>
+            <View style={styles.cell}>
+              <Text>Cell 3</Text>
+            </View>
           </View>
         </View>
-        <View style={styles.row}>
-          <View style={styles.cell}>
-            <Text>Cell 1</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text>Cell 2</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text>Cell 3</Text>
-          </View>
+        <ChartScreenshot chartImage={chartImage} />
+        <View style={styles.fonts}>
+          <Text style={styles.font.small}>Embedded Font:</Text>
+          <Text style={styles.font.helvetica}>Helvetica</Text>
+          <Text style={styles.font.small}>Dynamically Loaded Fonts:</Text>
+          <Text style={styles.font.alice}>Alice</Text>
+          <Text style={styles.font.inter}>Inter UI</Text>
+          <Text style={styles.font.roboto}>Roboto</Text>
         </View>
-        <View style={styles.row}>
-          <View style={styles.cell}>
-            <Text>Cell 1</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text>Cell 2</Text>
-          </View>
-          <View style={styles.cell}>
-            <Text>Cell 3</Text>
-          </View>
+        <View style={styles.footer}>
+          <Text>License: MIT</Text>
+          <Text>GitHub: naminho/webpack-react-pdf</Text>
+          <Text>Author: Matthias Giger</Text>
         </View>
-      </View>
-      <View style={styles.fonts}>
-        <Text style={styles.font.small}>Embedded Font:</Text>
-        <Text style={styles.font.helvetica}>Helvetica</Text>
-        <Text style={styles.font.small}>Dynamically Loaded Fonts:</Text>
-        <Text style={styles.font.alice}>Alice</Text>
-        <Text style={styles.font.inter}>Inter UI</Text>
-        <Text style={styles.font.roboto}>Roboto</Text>
-      </View>
-      <View style={styles.footer}>
-        <Text>License: MIT</Text>
-        <Text>GitHub: naminho/webpack-react-pdf</Text>
-        <Text>Author: Matthias Giger</Text>
-      </View>
-    </Page>
+      </Page>
+    </Document>
   )
 }
