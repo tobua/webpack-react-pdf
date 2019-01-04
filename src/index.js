@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Page from './Page'
 import Container from './Container'
-import Chart from './Chart'
+import Chart from './charts/Charts'
 import fonts from './fonts'
 import logo from './logo.png'
 
@@ -80,6 +80,7 @@ class App extends Component {
         <h2>DOM rendered Chart</h2>
         <p>A screenshot will be made and inserted into the PDF.</p>
         <Chart
+          svgFont="Arial"
           onScreenshot={(image) => {
             this.setState({
               chartImage: image

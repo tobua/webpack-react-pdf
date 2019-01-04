@@ -21,16 +21,15 @@
     "html-webpack-plugin": "^3.2.0",
     "html2canvas": "^1.0.0-alpha.12",
     "lodash.omit": "^4.5.0",
+    "prettier": "^1.15.3",
     "queue": "^5.0.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-vis": "^1.11.5",
     "recharts": "^1.4.1",
     "regenerator-runtime": "^0.13.1",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10"
-  },
-  "devDependencies": {
-    "prettier": "^1.15.3"
   }
 }

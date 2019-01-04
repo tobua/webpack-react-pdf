@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { LineChart, Line, XAxis, YAxis } from 'recharts'
 import html2canvas from 'html2canvas'
+import RechartsChart from './RechartsChart'
+import ReactVisChart from './ReactVisChart'
 
 export default class Chart extends Component {
   constructor(props) {
@@ -16,11 +17,21 @@ export default class Chart extends Component {
   }
 
   handleScreenshot() {
-    const { onScreenshot } = this.props
+    const { onScreenshot, svgFont } = this.props
+
+    const canvasWithFont = document.createElement('canvas')
+    canvasWithFont.font = 'Arial'
 
     html2canvas(this.chart, {
-      removeContainer: true,
-      logging: false
+      canvas: canvasWithFont,
+      removeContainer: false,
+      logging: false,
+      onclone: (doc) => {
+        if (svgFont) {
+          const svgs = doc.querySelectorAll('svg')
+          svgs.forEach(svg => (svg.style.fontFamily = svgFont))
+        }
+      }
     }).then((canvas) => {
       const imageData = canvas.toDataURL('image/png')
       this.chartImage.src = imageData
@@ -44,13 +55,6 @@ export default class Chart extends Component {
 
   render() {
     const { chartValue } = this.state
-    const data = [
-      { value: 4 },
-      { value: 2 },
-      { value: 5 },
-      { value: 1 },
-      { value: chartValue }
-    ]
 
     return (
       <div>
@@ -61,14 +65,13 @@ export default class Chart extends Component {
         />
         <br />
         <br />
-        <b>Chart</b>
+        <h3>Chart</h3>
         <br />
         <div id="chart">
-          <LineChart width={400} height={400} data={data}>
-            <XAxis />
-            <YAxis />
-            <Line type="monotone" dataKey="value" stroke="#8884d8" />
-          </LineChart>
+          <a href="https://github.com/recharts/recharts">Recharts</a>
+          <RechartsChart chartValue={chartValue} />
+          <a href="https://github.com/uber/react-vis">react-vis</a>
+          <ReactVisChart chartValue={chartValue} />
         </div>
         <b>Screenshot</b>
         <br />
