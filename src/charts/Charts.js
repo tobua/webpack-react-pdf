@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import html2canvas from 'html2canvas'
+import svg2canvas from './utils/svg2canvas'
 import RechartsChart from './RechartsChart'
 import ReactVisChart from './ReactVisChart'
 
@@ -22,6 +23,8 @@ export default class Chart extends Component {
     const canvasWithFont = document.createElement('canvas')
     canvasWithFont.font = 'Arial'
 
+    svg2canvas(document.querySelectorAll('.chart svg'))
+
     html2canvas(this.chart, {
       canvas: canvasWithFont,
       removeContainer: false,
@@ -29,7 +32,8 @@ export default class Chart extends Component {
       onclone: (doc) => {
         if (svgFont) {
           const svgs = doc.querySelectorAll('svg')
-          svgs.forEach(svg => (svg.style.fontFamily = svgFont))
+          Array.prototype.forEach.call(svgs,
+            (svg) => (svg.style.fontFamily = svgFont))
         }
       }
     }).then((canvas) => {
@@ -69,9 +73,14 @@ export default class Chart extends Component {
         <br />
         <div id="chart">
           <a href="https://github.com/recharts/recharts">Recharts</a>
-          <RechartsChart chartValue={chartValue} />
+          <div className="chart">
+            <RechartsChart chartValue={chartValue} />
+          </div>
+          <div id="between"></div>
           <a href="https://github.com/uber/react-vis">react-vis</a>
-          <ReactVisChart chartValue={chartValue} />
+          <div className="chart">
+            <ReactVisChart chartValue={chartValue} />
+          </div>
         </div>
         <b>Screenshot</b>
         <br />

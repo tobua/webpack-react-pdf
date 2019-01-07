@@ -21,7 +21,7 @@ npm start
 
 ## Browser Support
 
-To work on IE11 polyfills for `[].includes`, `Promise`, `0.isNaN`, `Array.from`, `Symbol.iterator`, `Array.prototype.@@iterator`, `String.prototype.codePointAt` and
+To work on IE11 polyfills for `[].includes`, `Promise`, `0.isNaN`, `Array.from`, `Symbol.iterator`, `Array.prototype.@@iterator`, `String.prototype.codePointAt`, `Array.prototype.find` (for `react-vis` charts) and
 `Object.assign` are necessary. Recharts will need `Number.isFinite` to work properly. With the help of `polyfill.io` these are loaded
 on demand in this example, without including them directly in the bundle. Additionally `regenerator-runtime` needs to be included
 in the file where the rendering happens (see imports in `src/Container.js`).
