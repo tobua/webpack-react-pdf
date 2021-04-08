@@ -1,95 +1,57 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import Page from './Page'
-import Container from './Container'
-import Chart from './charts/Charts'
-import fonts from './fonts'
+import React, { useState } from 'react'
+import { render } from 'react-dom'
+import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer'
+// import Page from './Page'
+// import Container from './Container'
+// import Chart from './charts/Charts'
+// import fonts from './fonts'
 import logo from './logo.png'
 
-class App extends Component {
-  constructor(props) {
-    super(props)
+const App = () => {
+  const [title, setTitle] = useState('React-PDF')
+  const [chartImage, setChartImage] = useState(null)
+  const [url, setUrl] = useState(null)
 
-    this._handleUrl = (url) => this.handleUrl(url)
-    this._handleTitle = event => this.handleTitle(event.target.value)
-    this._handleOpen = () => this.handleOpen()
-
-    this.state = {
-      title: 'React-PDF',
-      chartImage: undefined,
-      url: undefined
-    }
-  }
-
-  handleTitle(title) {
-    this.setState({
-      title
-    })
-  }
-
-  handleUrl(url) {
-    this.setState({
-      url
-    })
-  }
-
-  handleOpen() {
-    // Open PDF in IE11
-    if (typeof this.state.url === 'function') {
-      this.state.url()
-    }
-  }
-
-  render() {
-    const { title, chartImage, url } = this.state
-
-    return (
-      <div>
-        <div className="center">
-          <img src={logo} alt="webpack-react-pdf" />
-        </div>
-        <h1>webpack-react-pdf</h1>
-        <label>Change the Title</label>
-        <input
-          onChange={this._handleTitle}
-          value={title}
-        />
-        <br />
-        <br />
-        <a
-          href={typeof url === 'function' ? '' : url}
-          onClick={this._handleOpen}
-          download={'document.pdf'}
-        >
-          Download PDF
-        </a>
-        <br />
-        <br />
-        <Container
-          width={'100%'}
-          height={400}
-          onUrl={this._handleUrl}
-          fonts={fonts}
-          name="document"
-        >
-          <Page
-            title={title}
-            chartImage={chartImage}
-          />
-        </Container>
-        <h2>DOM rendered Chart</h2>
-        <p>A screenshot will be made and inserted into the PDF.</p>
-        <Chart
-          svgFont="Arial"
-          onScreenshot={(image) => {
-            this.setState({
-              chartImage: image
-            })
-          }}
-        />
+  return (
+    <div>
+      <div className="center">
+        <img src={logo} alt="webpack-react-pdf" />
       </div>
-    )
-  }
+      <h1>webpack-react-pdf</h1>
+      <label>Change the Title</label>
+      <input onChange={(event) => setTitle(event.target.value)} value={title} />
+      <br />
+      <br />
+      <a
+        href={typeof url === 'function' ? '' : url}
+        onClick={() => {
+          // Open PDF in IE11
+          if (typeof url === 'function') {
+            url()
+          }
+        }}
+        download={'document.pdf'}
+      >
+        Download PDF
+      </a>
+      {/* <PDFDownloadLink document={}>Download PDF</PDFDownloadLink> */}
+      <br />
+      <br />
+      {/* <Container
+        width={'100%'}
+        height={400}
+        onUrl={setUrl}
+        fonts={fonts}
+        name="document"
+      > */}
+      {/* <PDFViewer>
+        <Page title={title} chartImage={chartImage} />
+      </PDFViewer> */}
+      <h2>DOM rendered Chart</h2>
+      <p>A screenshot will be made and inserted into the PDF.</p>
+      {/* <Chart svgFont="Arial" onScreenshot={setChartImage} /> */}
+    </div>
+  )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+render(<App />, document.body)

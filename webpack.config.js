@@ -39,6 +39,8 @@ module.exports = (env) => ({
       fs: false,
       net: false,
       tls: false,
+      stream: false,
+      zlib: false,
     },
   },
 })
