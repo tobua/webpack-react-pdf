@@ -1,8 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-module.exports = (env) => ({
-  mode: env ? 'production' : 'development',
+module.exports = {
+  mode: 'development',
   module: {
     rules: [
       {
@@ -39,8 +39,14 @@ module.exports = (env) => ({
       fs: false,
       net: false,
       tls: false,
-      stream: false,
-      zlib: false,
+    },
+    alias: {
+      stream: 'stream-browserify',
+      zlib: 'browserify-zlib',
     },
   },
-})
+  // Disable size warnings.
+  performance: {
+    hints: false,
+  },
+}

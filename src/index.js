@@ -1,11 +1,18 @@
+import './polyfills.js'
 import React, { useState } from 'react'
 import { render } from 'react-dom'
-import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer'
-// import Page from './Page'
+import {
+  PDFViewer,
+  PDFDownloadLink,
+  Font,
+} from '@react-pdf/renderer/lib/react-pdf.browser.es'
+import Page from './Page'
 // import Container from './Container'
 // import Chart from './charts/Charts'
-// import fonts from './fonts'
+import fonts from './fonts'
 import logo from './logo.png'
+
+fonts.map((font) => Font.register({ family: font.name, src: font.url }))
 
 const App = () => {
   const [title, setTitle] = useState('React-PDF')
@@ -44,9 +51,9 @@ const App = () => {
         fonts={fonts}
         name="document"
       > */}
-      {/* <PDFViewer>
+      <PDFViewer>
         <Page title={title} chartImage={chartImage} />
-      </PDFViewer> */}
+      </PDFViewer>
       <h2>DOM rendered Chart</h2>
       <p>A screenshot will be made and inserted into the PDF.</p>
       {/* <Chart svgFont="Arial" onScreenshot={setChartImage} /> */}
