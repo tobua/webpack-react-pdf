@@ -1,12 +1,6 @@
-import 'regenerator-runtime'
-import * as buffer from 'buffer'
+// import 'regenerator-runtime'
+import buffer from 'buffer'
+import process from 'process'
 
 window.Buffer = buffer.Buffer
-global.Buffer = buffer.Buffer
-
-window.process = {
-  env: { DEBUG: undefined },
-  nextTick: function () {
-    return null
-  },
-}
+window.process = process

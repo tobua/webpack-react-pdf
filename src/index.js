@@ -6,11 +6,11 @@ import {
   PDFDownloadLink,
   Font,
 } from '@react-pdf/renderer/lib/react-pdf.browser.es'
-import Page from './Page'
+import { Exmpl } from 'exmpl'
+import { MyDocument } from './MyDocument'
 // import Container from './Container'
 // import Chart from './charts/Charts'
 import fonts from './fonts'
-import logo from './logo.png'
 
 fonts.map((font) => Font.register({ family: font.name, src: font.url }))
 
@@ -19,29 +19,23 @@ const App = () => {
   const [chartImage, setChartImage] = useState(null)
   const [url, setUrl] = useState(null)
 
+  const page = <MyDocument title={title} chartImage={chartImage} />
+
   return (
-    <div>
-      <div className="center">
-        <img src={logo} alt="webpack-react-pdf" />
-      </div>
-      <h1>webpack-react-pdf</h1>
-      <label>Change the Title</label>
-      <input onChange={(event) => setTitle(event.target.value)} value={title} />
+    <Exmpl
+      title="webpack-react-pdf"
+      github="https://tobua.github.io/webpack-react-pdf"
+      npm="@react-pdf/renderer"
+    >
+      <label htmlFor="title" style={{ fontSize: 10 }}>
+        Change the Title
+      </label>
       <br />
-      <br />
-      <a
-        href={typeof url === 'function' ? '' : url}
-        onClick={() => {
-          // Open PDF in IE11
-          if (typeof url === 'function') {
-            url()
-          }
-        }}
-        download={'document.pdf'}
-      >
-        Download PDF
-      </a>
-      {/* <PDFDownloadLink document={}>Download PDF</PDFDownloadLink> */}
+      <input
+        id="title"
+        onChange={(event) => setTitle(event.target.value)}
+        value={title}
+      />
       <br />
       <br />
       {/* <Container
@@ -51,13 +45,16 @@ const App = () => {
         fonts={fonts}
         name="document"
       > */}
-      <PDFViewer>
-        <Page title={title} chartImage={chartImage} />
+      <PDFViewer width="100%" height="300">
+        {page}
       </PDFViewer>
+      {/* <PDFDownloadLink document={page} fileName="test.pdf">
+        {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
+      </PDFDownloadLink> */}
       <h2>DOM rendered Chart</h2>
       <p>A screenshot will be made and inserted into the PDF.</p>
       {/* <Chart svgFont="Arial" onScreenshot={setChartImage} /> */}
-    </div>
+    </Exmpl>
   )
 }
 

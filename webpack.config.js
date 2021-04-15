@@ -1,25 +1,29 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-module.exports = {
-  mode: 'development',
+module.exports = (env) => ({
+  mode: env.production ? 'production' : 'development',
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
+        options: {
+          presets: [
+            ['@babel/preset-env', { targets: 'defaults' }],
+            '@babel/react',
+          ],
+        },
       },
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|svg)$/,
         loader: 'file-loader',
       },
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-    }),
+    new HtmlWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -49,4 +53,4 @@ module.exports = {
   performance: {
     hints: false,
   },
-}
+})
