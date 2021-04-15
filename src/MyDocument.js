@@ -7,7 +7,7 @@ import {
   Image,
   StyleSheet,
 } from '@react-pdf/renderer'
-// import ChartScreenshot from './ChartScreenshot'
+import { Screenshot } from './ChartScreenshot'
 import logo from './logo.png'
 
 const styles = StyleSheet.create({
@@ -156,7 +156,7 @@ export const MyDocument = ({ title, chartImage }) => (
           </View>
         </View>
       </View>
-      {/* <ChartScreenshot chartImage={chartImage} /> */}
+      <Screenshot chartImage={chartImage} />
       <View style={styles.fonts}>
         <Text style={styles.font.small}>Embedded Font:</Text>
         <Text style={styles.font.helvetica}>Helvetica</Text>
@@ -167,7 +167,7 @@ export const MyDocument = ({ title, chartImage }) => (
       </View>
       <View style={styles.footer}>
         <Text>License: MIT</Text>
-        <Text>GitHub: naminho/webpack-react-pdf</Text>
+        <Text>GitHub: tobua/webpack-react-pdf</Text>
         <Text>Author: Matthias Giger</Text>
       </View>
     </Page>

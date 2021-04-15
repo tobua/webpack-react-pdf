@@ -16,6 +16,7 @@ module.exports = (env) => ({
           ],
         },
       },
+      // Returns URL to image that can then be accessed in the browser.
       {
         test: /\.(png|jpg|svg)$/,
         loader: 'file-loader',
@@ -24,15 +25,17 @@ module.exports = (env) => ({
   },
   plugins: [
     new HtmlWebpackPlugin(),
+    // Copies over fonts to dist so they can be accessed in the browser.
     new CopyWebpackPlugin({
       patterns: [
         {
           from: 'fonts/*',
-          to: 'dist',
+          to: '.',
         },
       ],
     }),
   ],
+  // Open the page in the browser while developing.
   devServer: {
     open: true,
   },
@@ -44,6 +47,7 @@ module.exports = (env) => ({
       net: false,
       tls: false,
     },
+    // Use Browser-compatible alternatives for native node packages.
     alias: {
       stream: 'stream-browserify',
       zlib: 'browserify-zlib',

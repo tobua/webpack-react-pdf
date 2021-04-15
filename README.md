@@ -1,37 +1,32 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/naminho/webpack-react-pdf/master/src/logo.png" alt="webpack-react-pdf">
-</p>
-
 # webpack-react-pdf
 
-> Generate and preview PDF documents in the browser with React and Flexbox
+<img align="right" src="https://github.com/tobua/webpack-react-pdf/raw/master/src/logo.png" width="20%" alt="webpack-react-pdf" />
 
-Example setup of using `@react-pdf/renderer` (`1.0.0`) with `webpack` and generating PDF
-documents in the browser on the fly. Includes an example of how Charts rendered with
+`webpack` setup using [`@react-pdf/renderer`](https://react-pdf.org) (`^2.0.0`) to generate and display PDF
+documents in the browser.
+
+- Images
+- Fonts
+- Async Loaded Fonts
+- Table
+- Download Link
+- Chart
+
+Includes an example of how Charts rendered with
 React (`recharts`) can be "screenshotted" and inserted into the PDF as images.
 
-## Getting Started
+## Installation & Usage
 
 After cloning this repository run the following commands
 
 ```
-npm i
+npm install
 npm start
 ```
 
-## Browser Support
+## Polyfills
 
-To work on IE11 polyfills for `[].includes`, `Promise`, `0.isNaN`, `Array.from`, `Symbol.iterator`, `Array.prototype.@@iterator`, `String.prototype.codePointAt`, `Array.prototype.find` (for `react-vis` charts) and
-`Object.assign` are necessary. Recharts will need `Number.isFinite` to work properly. With the help of `polyfill.io` these are loaded
-on demand in this example, without including them directly in the bundle. Additionally `regenerator-runtime` needs to be included
-in the file where the rendering happens (see imports in `src/Container.js`).
-
-```
-<script src="https://cdn.polyfill.io/v2/polyfill.js?features=Array.prototype.includes,Promise,Number.isNaN,Object.assign,Number.isFinite,Array.from,Symbol.iterator,Array.prototype.@@iterator,String.prototype.codePointAt"></script>
-```
-
-The in-page PDF preview doesn't work in IE11, but in newer versions of Chrome,
-Safari and FireFox.
+// TODO
 
 ## Content-Security-Policy
 
