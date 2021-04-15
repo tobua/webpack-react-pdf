@@ -1,0 +1,26 @@
+name: publish
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '14'
+          check-latest: true
+      - name: Build 🛠️
+        run: |
+          npm install
+          npm run build
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: demo
+          FOLDER: dist
+          CLEAN: true
