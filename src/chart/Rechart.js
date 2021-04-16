@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { LineChart, Line, XAxis, YAxis } from 'recharts'
 
-export default function({ chartValue }) {
+export const Rechart = ({ value }) => {
   const data = [
     { value: 4 },
     { value: 2 },
     { value: 5 },
     { value: 1 },
-    { value: chartValue }
+    { value },
   ]
 
   return (

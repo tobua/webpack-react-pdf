@@ -11,15 +11,15 @@ const styles = StyleSheet.create({
   },
 })
 
-export const Screenshot = ({ chartImage }) => {
-  if (!chartImage) {
+export const Screenshot = ({ image }) => {
+  if (!image) {
     return null
   }
 
   return (
     <View style={styles.view}>
       <Text>Embedded Screenshot</Text>
-      <Image style={styles.image} src={chartImage} />
+      <Image style={styles.image} src={image} />
     </View>
   )
 }

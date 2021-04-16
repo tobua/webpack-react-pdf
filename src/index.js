@@ -7,8 +7,8 @@ import {
   Font,
 } from '@react-pdf/renderer/lib/react-pdf.browser.es'
 import { Exmpl } from 'exmpl'
-import { MyDocument } from './MyDocument'
-import Chart from './charts/Charts'
+import { Document } from './pdf/Document'
+import { Chart } from './chart/Chart'
 import fonts from './fonts'
 
 // Register asynchronous loaded fronts before rendering anything.
@@ -16,11 +16,9 @@ fonts.map((font) => Font.register({ family: font.name, src: font.url }))
 
 const App = () => {
   const [title, setTitle] = useState('React-PDF')
-  const [chartImage, setChartImage] = useState(null)
+  const [screenshot, setScreenshot] = useState(null)
 
-  console.log(chartImage)
-
-  const page = <MyDocument title={title} chartImage={chartImage} />
+  const page = <Document title={title} screenshot={screenshot} />
 
   return (
     <Exmpl
@@ -45,9 +43,7 @@ const App = () => {
       {/* <PDFDownloadLink document={page} fileName="test.pdf">
         {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
       </PDFDownloadLink> */}
-      <h2>DOM rendered Chart</h2>
-      <p>A screenshot will be made and inserted into the PDF.</p>
-      <Chart svgFont="Arial" onScreenshot={setChartImage} />
+      <Chart screenshot={screenshot} onScreenshot={setScreenshot} />
     </Exmpl>
   )
 }

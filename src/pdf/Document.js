@@ -1,14 +1,14 @@
 import React from 'react'
 import {
-  Document,
+  Document as PDFDocument,
   Page,
   Text,
   View,
   Image,
   StyleSheet,
 } from '@react-pdf/renderer'
-import { Screenshot } from './ChartScreenshot'
-import logo from './logo.png'
+import { Screenshot } from './Screenshot'
+import logo from './../../logo.png'
 
 const styles = StyleSheet.create({
   page: {
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
   },
 })
 
-export const MyDocument = ({ title, chartImage }) => (
-  <Document
+export const Document = ({ title, screenshot }) => (
+  <PDFDocument
     title="React-PDF Document"
     author="Matthias Giger"
     subject="This was generated with @react-pdf/renderer."
@@ -156,7 +156,7 @@ export const MyDocument = ({ title, chartImage }) => (
           </View>
         </View>
       </View>
-      <Screenshot chartImage={chartImage} />
+      <Screenshot image={screenshot} />
       <View style={styles.fonts}>
         <Text style={styles.font.small}>Embedded Font:</Text>
         <Text style={styles.font.helvetica}>Helvetica</Text>
@@ -171,5 +171,5 @@ export const MyDocument = ({ title, chartImage }) => (
         <Text>Author: Matthias Giger</Text>
       </View>
     </Page>
-  </Document>
+  </PDFDocument>
 )
