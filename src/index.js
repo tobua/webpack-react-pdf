@@ -6,7 +6,7 @@ import {
   PDFDownloadLink,
   Font,
 } from '@react-pdf/renderer/lib/react-pdf.browser.es'
-import { Exmpl } from 'exmpl'
+import { Exmpl, Input, Tabs } from 'exmpl'
 import { Document } from './pdf/Document'
 import { Chart } from './chart/Chart'
 import fonts from './fonts'
@@ -26,23 +26,35 @@ const App = () => {
       github="https://tobua.github.io/webpack-react-pdf"
       npm="@react-pdf/renderer"
     >
-      <label htmlFor="title" style={{ fontSize: 10 }}>
-        Change the Title
-      </label>
-      <br />
-      <input
-        id="title"
-        onChange={(event) => setTitle(event.target.value)}
+      <Input
+        placeholder="Change the Title"
         value={title}
+        onValue={(title) => setTitle(title)}
       />
       <br />
       <br />
-      <PDFViewer width="100%" height="500">
-        {page}
-      </PDFViewer>
-      {/* <PDFDownloadLink document={page} fileName="test.pdf">
-        {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
-      </PDFDownloadLink> */}
+      <Tabs labels={['Viewer', 'Download']}>
+        <PDFViewer width="100%" height="500">
+          {page}
+        </PDFViewer>
+        <PDFDownloadLink
+          document={page}
+          fileName="browser-generated.pdf"
+          style={{ color: 'black', textDecoration: 'none', fontWeight: 'bold' }}
+        >
+          {({ loading, error }) =>
+            loading
+              ? 'Loading document...'
+              : error
+              ? 'Error generating PDF'
+              : 'Download now!'
+          }
+        </PDFDownloadLink>
+      </Tabs>
+      <p style={{ fontSize: 10 }}>
+        Note: Choose between PDFViewer and PDFDownloadLink as rendering both
+        will throw an error currently.
+      </p>
       <Chart screenshot={screenshot} onScreenshot={setScreenshot} />
     </Exmpl>
   )

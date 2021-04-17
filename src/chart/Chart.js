@@ -1,17 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react'
 import html2canvas from 'html2canvas'
-import svg2canvas from './utils/svg2canvas'
+import { Input, Button, Grid } from 'exmpl'
 import { Rechart } from './Rechart'
 
 const takeScreenshot = async (onScreenshot, chart) => {
-  const canvasWithFont = document.createElement('canvas')
-  canvasWithFont.font = 'Arial'
+  const { scrollX, scrollY } = window
 
-  svg2canvas(chart.querySelectorAll('svg'))
+  // Screenshot will be cut by scrollY if not on top.
+  window.scrollTo(0, 0)
 
   const canvas = await html2canvas(chart, {
-    canvas: canvasWithFont,
-    removeContainer: false,
     logging: false,
     // Required for Arial to be used in Safari.
     onclone: (doc) => {
@@ -19,6 +17,9 @@ const takeScreenshot = async (onScreenshot, chart) => {
       svgs.forEach((svg) => (svg.style.fontFamily = 'Arial'))
     },
   })
+
+  // Reset scroll position after taking screenshot.
+  window.scrollTo(scrollX, scrollY)
 
   onScreenshot(canvas.toDataURL('image/png'))
 }
@@ -41,27 +42,27 @@ export const Chart = ({ screenshot, onScreenshot }) => {
         inserted into the PDF above. Configure the chart value and update the
         screenshot.
       </p>
-      <label htmlFor="value" style={{ fontSize: 10 }}>
-        Dynamic Value
-      </label>
-      <br />
-      <input
-        id="value"
-        onChange={(event) => setValue(event.target.value)}
+      <Input
+        style={{ marginRight: 20 }}
+        placeholder="Dynamic Value"
         value={value}
+        onValue={(value) => setValue(value)}
       />
-      <button
-        style={{ marginLeft: 20 }}
-        onClick={() => takeScreenshot(onScreenshot, chart.current)}
-      >
+      <Button onClick={() => takeScreenshot(onScreenshot, chart.current)}>
         Update Screenshot
-      </button>
-      <h3>Chart</h3>
-      <div ref={chart}>
-        <Rechart value={value} />
-      </div>
-      <h3>Screenshot Image</h3>
-      {screenshot && <img alt="Screenshot" src={screenshot} />}
+      </Button>
+      <Grid>
+        <div>
+          <h3>Chart</h3>
+          <div ref={chart}>
+            <Rechart value={value} />
+          </div>
+        </div>
+        <div>
+          <h3>Screenshot Image</h3>
+          {screenshot && <img alt="Screenshot" width="100%" src={screenshot} />}
+        </div>
+      </Grid>
     </div>
   )
 }
