@@ -39,18 +39,12 @@ module.exports = (env) => ({
   devServer: {
     open: true,
   },
-  // Some libraries import Node modules but don't use them in the browser.
-  // Tell Webpack to provide empty mocks for them so importing them works.
   resolve: {
-    fallback: {
-      fs: false,
-      net: false,
-      tls: false,
-    },
     // Use Browser-compatible alternatives for native node packages.
     alias: {
       stream: 'stream-browserify',
       zlib: 'browserify-zlib',
+      crypto: 'crypto-browserify',
     },
   },
   // Disable size warnings.

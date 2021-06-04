@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
     display: 'flex',
   },
   image: {
-    width: 'auto',
-    height: 100,
+    height: 120,
+    width: 120,
   },
 })
 
@@ -16,10 +16,5 @@ export const Screenshot = ({ image }) => {
     return null
   }
 
-  return (
-    <View style={styles.view}>
-      <Text>Embedded Screenshot</Text>
-      <Image style={styles.image} src={image} />
-    </View>
-  )
+  return <Image style={styles.image} src={image} />
 }

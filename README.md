@@ -21,25 +21,19 @@ React (`recharts`) can be "screenshotted" and inserted into the PDF as images.
 
 After cloning this repository run the following commands
 
-```
+```sh
 npm install
 npm start
 ```
 
 ## Polyfills
 
-// TODO
+Since PDF rendering usually happens on the server side with node. The following node built in dependencies have to be polyfilled.
+
+- [`stream`](https://nodejs.org/api/stream.html) with [`stream-browserify`](https://www.npmjs.com/package/stream-browserify)
+- [`zlib`](https://nodejs.org/api/zlib.html) with [`browserify-zlib`](https://www.npmjs.com/package/browserify-zlib)
+- [`crypto`](https://nodejs.org/api/crypto.html) with [`crypto-browserify`](https://www.npmjs.com/package/crypto-browserify) Optional
 
 ## Browser Support
 
 Tested with recent versions of Chrome, Safari, Firefox and their mobile counterparts.
-
-## Content-Security-Policy
-
-Modern browsers implement the `Content-Security-Policy` header. Usually this
-will block the PDF preview which requires `blob`. A minimal header to get the
-preview working would look like this (see `.htaccess` file)
-
-```
-Header add Content-Security-Policy "default-src 'self' 'unsafe-eval' 'unsafe-inline' *.polyfill.io blob:"
-```
