@@ -23,7 +23,7 @@ const App = () => {
   return (
     <Exmpl
       title="webpack-react-pdf"
-      github="https://tobua.github.io/webpack-react-pdf"
+      github="tobua/webpack-react-pdf"
       npm="@react-pdf/renderer"
     >
       <Input
