@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import html2canvas from 'html2canvas'
 import { Input, Button, Grid } from 'exmpl'
-import { Rechart } from './Rechart'
+import { Rechart } from '/chart/Rechart'
 
 const takeScreenshot = async (onScreenshot, chart) => {
   const { scrollX, scrollY } = window

@@ -1,4 +1,3 @@
-// import 'regenerator-runtime'
 import buffer from 'buffer'
 import process from 'process'
 

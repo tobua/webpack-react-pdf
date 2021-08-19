@@ -3,6 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = (env) => ({
   mode: env.production ? 'production' : 'development',
+  entry: './index.js',
   module: {
     rules: [
       {
