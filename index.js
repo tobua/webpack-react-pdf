@@ -2,12 +2,12 @@ import '/polyfills.js'
 import React, { useState } from 'react'
 import { render } from 'react-dom'
 import { PDFViewer, PDFDownloadLink, Font } from '@react-pdf/renderer'
-import { Exmpl, Input, Tabs } from 'exmpl'
+import { Exmpl, Input } from 'exmpl'
 import { Document } from '/pdf/Document'
 import { Chart } from '/chart/Chart'
 import fonts from '/fonts'
 
-// Register asynchronous loaded fronts before rendering anything.
+// Register asynchronously loaded fonts before rendering anything.
 fonts.map((font) => Font.register({ family: font.name, src: font.url }))
 
 const App = () => {

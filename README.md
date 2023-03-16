@@ -1,8 +1,8 @@
 # webpack-react-pdf
 
-<img align="right" src="https://github.com/tobua/webpack-react-pdf/raw/master/logo.png" width="20%" alt="webpack-react-pdf" />
+<img align="right" src="https://github.com/tobua/webpack-react-pdf/raw/main/logo.png" width="20%" alt="webpack-react-pdf" />
 
-`webpack` setup using [`@react-pdf/renderer`](https://react-pdf.org) (`^2.0.0`) to generate and display PDF
+`webpack` setup using [`@react-pdf/renderer`](https://react-pdf.org) (`^3.0.0`) to generate and display PDF
 documents in the browser.
 
 - Images
